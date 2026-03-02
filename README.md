@@ -1,4 +1,4 @@
-# Email Draft - GSoC 2026: New Idea
+# InVesalius PubSub Architecture Analysis & Modernization Proposal — GSoC 2026
 ---
 
 Hi paulojamorim,
