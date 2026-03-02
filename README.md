@@ -1,9 +1,6 @@
 # InVesalius PubSub Architecture Analysis & Modernization Proposal — GSoC 2026
 ---
 
-Hi paulojamorim,
-
-
 My name is K. Purandeswar Reddy, and I'm a 3rd year B.Tech Data Science student at Santhiram Engineering College. I've been exploring InVesalius over the past few days to prepare for my GSoC 2026 application, and I've come across something I think would make a strong project idea. I wanted to share what I've found and get your thoughts before putting together a formal proposal.
 
 
