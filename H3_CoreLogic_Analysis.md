@@ -75,7 +75,7 @@ maxGridDiskSize(k) = 3*k*(k+1) + 1
 
 **Important:** Output array **may contain zeros** (`H3_NULL = 0`) when crossing a pentagon. The Go binding strips these by default (`cellsFromC(out, true, false)`).
 
-**Pentagon caveat:** There are exactly 12 pentagon cells in H3 (one per icosahedron vertex, replicated at every resolution). If your ambulance or emergency is near one, `gridDisk` silently falls back to the safe algorithm — you don't need to handle this yourself, but be aware the output cell count may be slightly less than the formula predicts.
+**Pentagon caveat:** There are exactly 12 pentagon cells in H3 (one per icosahedron vertex, replicated at every resolution). If your ambulance or emergency is near one, `gridDisk` silently falls b[...]
 
 ---
 
@@ -198,12 +198,12 @@ The C code places cells "in no particular order." Do **not** assume the first el
 
 ## 5. File-by-File Summary for the Maintainer
 
-| File | Role in your system |
-|---|---|
-| `h3api.h.in` | Public API contract. `latLngToCell`, `gridDisk`, `gridDistance`, `maxGridDiskSize` are all declared here. All return `H3Error`. |
-| `h3Index.c` | Bit-level encoding of the 64-bit cell token. Resolution (4 bits), base cell (7 bits), 15 digit levels (3 bits each). Not called directly. |
-| `algos.c` | Implements `gridDisk` and `maxGridDiskSize`. The `3k(k+1)+1` formula is here. Contains the pentagon fallback logic. |
-| `localij.c` | Implements `gridDistance` via IJ projection. Anchor-based — both cells must be "close" in grid terms. Source of `E_PENTAGON` / `E_FAILED` errors. |
-| `faceijk.c` | Handles the icosahedron → IJ coordinate math used by `latLngToCell`. Internally called; not invoked directly. |
-| `h3-go/h3.go` | Go CGo bindings. `LatLngToCell`, `GridDisk`, `GridDistance` are the three functions your dispatch loop calls. |
-| `h3-go/h3_test.go` | Test suite. Reference for expected behaviour: valid cell checks, pentagon handling, resolution edge cases. |
+| File | Role in your system | Source Link |
+|---|---|---|
+| `h3api.h.in` | Public API contract. `latLngToCell`, `gridDisk`, `gridDistance`, `maxGridDiskSize` are all declared here. All return `H3Error`. | [h3api.h.in](https://github.com/uber/h3/blob/master/src/h3lib/include/h3api.h.in) |
+| `h3Index.c` | Bit-level encoding of the 64-bit cell token. Resolution (4 bits), base cell (7 bits), 15 digit levels (3 bits each). Not called directly. | [h3Index.c](https://github.com/uber/h3/blob/master/src/h3lib/lib/h3Index.c) |
+| `algos.c` | Implements `gridDisk` and `maxGridDiskSize`. The `3k(k+1)+1` formula is here. Contains the pentagon fallback logic. | [algos.c](https://github.com/uber/h3/blob/master/src/h3lib/lib/algos.c) |
+| `localij.c` | Implements `gridDistance` via IJ projection. Anchor-based — both cells must be "close" in grid terms. Source of `E_PENTAGON` / `E_FAILED` errors. | [localij.c](https://github.com/uber/h3/blob/master/src/h3lib/lib/localij.c) |
+| `faceijk.c` | Handles the icosahedron → IJ coordinate math used by `latLngToCell`. Internally called; not invoked directly. | [faceijk.c](https://github.com/uber/h3/blob/master/src/h3lib/lib/faceijk.c) |
+| `h3-go/h3.go` | Go CGo bindings. `LatLngToCell`, `GridDisk`, `GridDistance` are the three functions your dispatch loop calls. | [h3.go](https://github.com/uber/h3-go/blob/master/h3.go) |
+| `h3-go/h3_test.go` | Test suite. Reference for expected behaviour: valid cell checks, pentagon handling, resolution edge cases. | [h3_test.go](https://github.com/uber/h3-go/blob/master/h3_test.go) |
